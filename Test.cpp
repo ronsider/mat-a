@@ -70,10 +70,20 @@ CHECK_EQ(mat2,"-------------\n"
               "-------------");
 
 
-  c=3, r=5, s1='+', s2='$';                         
+  c=3, r=5, s1='+', s2='$';
+  mat3 = ariel::mat(c,r,s1,s2);
+
+CHECK_EQ(mat3,"+++\n"
+              "+$+\n"
+              "+$+\n"
+              "+$+\n"
+              "+++"); 
 
 
+  c=1, r=1, s1=')', s2='#';
+  std::string mat4 = ariel::mat(c,r,s1,s2);
 
-              
+  CHECK_EQ(mat4, ")");                                                 
 }
+
 
