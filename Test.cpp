@@ -225,7 +225,7 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
 }
 
 
-TEST_CASE("Check that paramets are odd")//in case column or row is odd number, user should throw an exception
+TEST_CASE("Check that paramets are odd")//in case column or row is even number, user should throw an exception
 {
   ////////////////
   ///////////////
@@ -242,7 +242,38 @@ TEST_CASE("Check that paramets are odd")//in case column or row is odd number, u
   c=8;
   r=4;
   CHECK_THROWS(ariel::mat(c,r,'(','%'));
-
-
+  ///////////
+  ///////////
+  c=0;
+  r=7;
+  CHECK_THROWS(ariel::mat(c,r,'%','@'));
+  ///////////////
+  //////////////
+  c=5;
+  r=0;
+  CHECK_THROWS(ariel::mat(c,r,'%','@'));
 
 }
+
+TEST_CASE("Column and row must initialized with positive values only")
+{
+  int r = -5;
+  int c=9;
+  CHECK_THROWS(ariel::mat(c,r,'&','$'));
+  //////////////
+  /////////////
+  r=5;
+  c=-1;
+  CHECK_THROWS(ariel::mat(c,r,'-','+'));
+  ////////////
+  ////////////
+  r = -3;
+  c = 7;
+  CHECK_THROWS(ariel::mat(c,r,'*','('));
+  ////////////
+  ////////////
+  r = -5;
+  c = -9;
+  CHECK_THROWS(ariel::mat(c,r,'^','*'));
+}
+
