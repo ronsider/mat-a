@@ -223,3 +223,26 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
   CHECK(k==0);
 
 }
+
+
+TEST_CASE("Check that paramets are odd")//in case column or row is odd number, user should throw an exception
+{
+  ////////////////
+  ///////////////
+  int c=4;
+  int r=7;
+  CHECK_THROWS(ariel::mat(c,r,'@','#'));
+  ///////////////
+  //////////////
+  c=7;
+  r=2;
+  CHECK_THROWS(ariel::mat(c,r,'#','*'));
+  /////////////
+  ////////////
+  c=8;
+  r=4;
+  CHECK_THROWS(ariel::mat(c,r,'(','%'));
+
+
+
+}
