@@ -93,6 +93,7 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
 {
   int c,r;
   
+  srand(time(NULL));//seed for generating random number
 
   c = rand()%20;//random odd number of columns
   if(c==1)
@@ -139,9 +140,9 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
   /*another check with random numbers*/
 
   int _c = rand()%20;
-  if(c==1)
+  if(_c==1)
   {
-    c+=6;
+    _c+=6;
   }
   else if(c%2==0)
   {
@@ -275,5 +276,52 @@ TEST_CASE("Column and row must initialized with positive values only")
   r = -5;
   c = -9;
   CHECK_THROWS(ariel::mat(c,r,'^','*'));
+}
+
+TEST_CASE("Check dimensions where m x 1 or 1 x m")//if one of dimensions is of size one, then user should have only one frame
+{
+  //this case where one of the dimension is of size 1 should only consist of a single frame ==> entire string consists of single symbol
+  bool condition = false;
+
+  int cols = 5;
+  std::string star = ariel::mat(cols,1,'%','^');
+
+  if(star == "%%%%%")
+  {
+    condition = true;
+  }
+  CHECK(condition == true);
+
+  /////////////////
+  ////////////////
+
+  bool condition1 = false;
+  cols = 7;
+  std::string st = ariel::mat(cols,1,'@','*');
+
+  if(st == "@@@@@@@")
+  {
+    condition1 = true;
+  }
+
+  CHECK(condition1 == true);
+
+}
+
+TEST_CASE("White space should also be considered as a symbol")
+{
+  char symbol1 = '$';
+  char symbol2 = ' ';
+  int col = 5;
+  int rows = 7;
+
+  std::string _s = ariel::mat(col,rows,symbol1,symbol2);
+}
+
+TEST_CASE("Check for arbitrary test cases")
+{
+  CHECK_THROWS(ariel::mat(1,-1,'*','^'));
+  CHECK_THROWS(ariel::mat(1,-7,'*','&'));
+  CHECK_THROWS(ariel::mat(-3,-5,'&','1'));
 }
 
