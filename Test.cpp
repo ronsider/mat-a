@@ -316,12 +316,62 @@ TEST_CASE("White space should also be considered as a symbol")
   int rows = 7;
 
   std::string _s = ariel::mat(col,rows,symbol1,symbol2);
+
+  CHECK(_s == "$$$$$\n"
+              "$   $\n"
+              "$ $ $\n"
+              "$ $ $\n"
+              "$ $ $\n"
+              "$   $\n"
+              "$$$$$");
+
+    ///////////////
+    //////////////
+
+    symbol1 = ' ';
+    symbol2 = '#';
+    //rows and columns remain the same as previuos test case, only symbols have changed
+    _s = ariel::mat(col,rows,symbol1,symbol2);
+    CHECK(_s == "     \n"
+                " ### \n"
+                " # # \n"
+                " # # \n"
+                " # # \n"
+                " ### \n"
+                "     ");
+
 }
 
-TEST_CASE("Check for arbitrary test cases")
+TEST_CASE("Check for arbitrary test cases")//mixing previous TEST_CASES
 {
+  //no negative dimension
   CHECK_THROWS(ariel::mat(1,-1,'*','^'));
   CHECK_THROWS(ariel::mat(1,-7,'*','&'));
   CHECK_THROWS(ariel::mat(-3,-5,'&','1'));
+
+  /////////////////
+  /////////////////both dimensions must be an odd number
+  CHECK_THROWS(ariel::mat(4,8,' ','^'));
+  CHECK_THROWS(ariel::mat(3,6,' ','^'));
+
+  ////////the symbols may be equal==>no such constraint was given in instructions that must be different
+  std::string _str = ariel::mat(3,3,'*','*');
+  CHECK(_str == "***\n"
+                "***\n"
+                "***");
+                
+  //numbers as symbols
+  std::string sts = ariel::mat(5,3,'1','3');
+  CHECK(sts == "11111\n"
+              "13331\n"
+              "11111");
+
+
+   std::string tt = ariel::mat(5,5,'7','2');
+   CHECK(tt == "77777\n"
+               "72227\n"
+               "72727\n"
+               "72227\n"
+               "77777\n");                        
 }
 
