@@ -132,6 +132,7 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
     if(_test[i]!='+' && _test[i]!='-' && _test[i]!='\n')
     {
      t++;
+     break;
     }
   }
   CHECK(t==0);
@@ -174,6 +175,7 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
     if(_test1[i]!='@' && _test1[i]!='$' && _test1[i]!='\n')
     {
       k++;
+      break;
     }
   }
   CHECK(k==0);
@@ -218,10 +220,11 @@ TEST_CASE("Check number of symbols")//number of possible symbols is 3. symbol1, 
     if(_test2[i]!='%' && _test2[i]!='*' && _test2[i]!='\n')
     {
       y++;
+      break;
     }
   }
 
-  CHECK(k==0);
+  CHECK(y==0);
 
 }
 
